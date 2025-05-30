@@ -1,0 +1,598 @@
+This file contains, as of early 2025, all the ii commands available for Crow. I've compiled all of the ii.[device].help() commands' outputs, for easy reference for scripting.
+
+
+> ii.help()
+  --- ii: supported modules
+  ansible  -- ansible
+  crow  -- crow
+  disting  -- Disting EX
+  er301  -- ER-301
+  faders  -- 16n Faderbank
+  jf  -- just friends
+  kria  -- ansible kria
+  levels  -- ansible levels
+  meadowphysics  -- ansible meadowphysics
+  txi  -- TXi
+  txo  -- TXO
+  wdel  -- W/ delay
+  wsyn  -- W/ synth
+  wtape  -- W/ Tape
+  --- See a module's commands with 'ii.<module>.help()'
+  ii.jf.help()  
+
+> ii.ansible.help()
+  -- commands
+    ii.ansible.trigger( channel, state )
+    ii.ansible.trigger_toggle( channel )id////
+    ii.ansible.trigger_pulse( channel )
+    ii.ansible.trigger_time( channel, time )
+    ii.ansible.trigger_polarity( channel, polarity )
+    ii.ansible.cv( channel, volts )
+    ii.ansible.cv_slew( channel, time )
+    ii.ansible.cv_offset( channel, volts )
+    ii.ansible.cv_set( channel, volts )
+  -- request params
+  ii.ansible.get( 'trigger', channel )
+  ii.ansible.get( 'trigger_time', channel )
+  ii.ansible.get( 'trigger_polarity', channel )
+  ii.ansible.get( 'cv', channel )
+  ii.ansible.get( 'cv_slew', channel )
+  ii.ansible.get( 'cv_offset', channel )
+  ii.ansible.get( 'input', channel )
+  -- then receive
+  ii.ansible.event = function( e, value )
+    if e.name == 'trigger' then
+      -- handle trigger response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'trigger_time' then
+    elseif e.name == 'trigger_polarity' then
+    elseif e.name == 'cv' then
+    elseif e.name == 'cv_slew' then
+    elseif e.name == 'cv_offset' then
+    elseif e.name == 'input' then
+    end
+  end
+
+> ii.crow.help()
+  -- commands
+    ii.crow.volts( channel, level )
+    ii.crow.slew( channel, time )
+    ii.crow.call1( arg )
+    ii.crow.call2( arg1, arg2 )
+    ii.crow.call3( arg1, arg2, arg3 )
+    ii.crow.call4( arg1, arg2, arg3, arg4 )
+    ii.crow.reset(  )
+    ii.crow.pulse( chan, time, level, polarity )
+    ii.crow.ar( chan, attack, release, level )
+    ii.crow.lfo( chan, freq, level, skew )
+  -- request params
+  ii.crow.get( 'input', channel )
+  ii.crow.get( 'output', channel )
+  ii.crow.get( 'query0' )
+  ii.crow.get( 'query1', arg1 )
+  ii.crow.get( 'query2', arg1 )
+  ii.crow.get( 'query3', arg1, arg2 )
+  -- then receive
+  ii.crow.event = function( e, value )
+    if e.name == 'input' then
+      -- handle input response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'output' then
+    elseif e.name == 'query0' then
+    elseif e.name == 'query1' then
+    elseif e.name == 'query2' then
+    elseif e.name == 'query3' then
+    end
+  end  
+
+> ii.disting.help()
+  -- commands
+    ii.disting.load_preset( number )
+    ii.disting.save_preset( value )
+    ii.disting.reset_preset(  )
+    ii.disting.algorithm( algorithm )
+    ii.disting.controller( controller, value )
+    ii.disting.parameter( parameter, value )
+    ii.disting.scale_parameter( parameter, value )
+    ii.disting.wav_record( action )
+    ii.disting.wav_playback( action )
+    ii.disting.al_pitch( pitch )
+    ii.disting.al_clock(  )
+    ii.disting.lp_clear(  )
+    ii.disting.midi( status, b0, b1 )
+    ii.disting.select_bus( status, b0, b1 )
+    ii.disting.voice_pitch( voice, pitch )
+    ii.disting.voice_on( voice, velocity )
+    ii.disting.voice_off( voice )
+    ii.disting.note_pitch( note_id, pitch )
+    ii.disting.note_velocity( note_id, velocity )
+    ii.disting.note_off( note_id )
+    ii.disting.all_notes_off(  )
+    ii.disting.dual_parameter( side, param, value )
+    ii.disting.dual_scale_parameter( side, param, value )
+    ii.disting.dual_algorithm( side, algorithm )
+    ii.disting.dual_algorithms( algorithm_left, algorithm_right )
+    ii.disting.load_dual_preset( side, preset )
+    ii.disting.save_dual_preset( side, preset )
+    ii.disting.take_over_z( side, value )
+  -- request params
+  ii.disting.get( 'preset' )
+  ii.disting.get( 'algorithm' )
+  ii.disting.get( 'parameter', parameter )
+  ii.disting.get( 'parameter_min', parameter )
+  ii.disting.get( 'parameter_max', parameter )
+  ii.disting.get( 'lp_state', loop )
+  ii.disting.get( 'dual_parameter', side )
+  ii.disting.get( 'dual_parameter_min', side )
+  ii.disting.get( 'dual_parameter_max', side )
+  -- then receive
+  ii.disting.event = function( e, value )
+    if e.name == 'preset' then
+      -- handle preset response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'algorithm' then
+    elseif e.name == 'parameter' then
+    elseif e.name == 'parameter_min' then
+    elseif e.name == 'parameter_max' then
+    elseif e.name == 'lp_state' then
+    elseif e.name == 'dual_parameter' then
+    elseif e.name == 'dual_parameter_min' then
+    elseif e.name == 'dual_parameter_max' then
+    end
+  end
+
+> ii.er301.help()
+  -- commands
+  ii.er301.tr( port, state )
+  ii.er301.tr_tog( port )
+  ii.er301.tr_pulse( port )
+  ii.er301.tr_time( port, ms )
+  ii.er301.tr_pol( port, rising )
+  ii.er301.cv( port, volts )
+  ii.er301.cv_slew( port, ms )
+  ii.er301.cv_set( port, volts )
+  ii.er301.cv_off( port, volts )
+
+> ii.faders.help()
+  -- request params
+  ii.faders.get( 1 )
+  ii.faders.get( 2 )
+  ii.faders.get( 3 )
+  ii.faders.get( 4 )
+  ii.faders.get( 5 )
+  ii.faders.get( 6 )
+  ii.faders.get( 7 )
+  ii.faders.get( 8 )
+  ii.faders.get( 9 )
+  ii.faders.get( 10 )
+  ii.faders.get( 11 )
+  ii.faders.get( 12 )
+  ii.faders.get( 13 )
+  ii.faders.get( 14 )
+  ii.faders.get( 15 )
+  ii.faders.get( 16 )
+  -- then receive
+  ii.faders.event = function( e, value )
+    if e.name == 1 then
+      -- handle 1 response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 2 then
+    elseif e.name == 3 then
+    elseif e.name == 4 then
+    elseif e.name == 5 then
+    elseif e.name == 6 then
+    elseif e.name == 7 then
+    elseif e.name == 8 then
+    elseif e.name == 9 then
+    elseif e.name == 10 then
+    elseif e.name == 11 then
+    elseif e.name == 12 then
+    elseif e.name == 13 then
+    elseif e.name == 14 then
+    elseif e.name == 15 then
+    elseif e.name == 16 then
+    end
+  end     
+
+> ii.jf.help()
+  -- commands
+    ii.jf.trigger( channel, state )
+    ii.jf.run_mode( mode )
+    ii.jf.run( volts )
+    ii.jf.transpose( pitch )
+    ii.jf.vtrigger( channel, level )
+    ii.jf.mode( mode )
+    ii.jf.tick( clock_or_bpm )
+    ii.jf.play_voice( channel, pitch_or_divs, level_or_repeats )
+    ii.jf.play_note( pitch_or_divs, level_or_repeats )
+    ii.jf.god_mode( state )
+    ii.jf.retune( channel, numerator, denominator )
+    ii.jf.quantize( divisions )
+    ii.jf.pitch( channel, pitch )
+    ii.jf.address( index )
+  -- request params
+  ii.jf.get( 'trigger', channel )
+  ii.jf.get( 'run_mode' )
+  ii.jf.get( 'run' )
+  ii.jf.get( 'transpose' )
+  ii.jf.get( 'mode' )
+  ii.jf.get( 'tick' )
+  ii.jf.get( 'god_mode' )
+  ii.jf.get( 'quantize' )
+  ii.jf.get( 'speed' )
+  ii.jf.get( 'tsc' )
+  ii.jf.get( 'ramp' )
+  ii.jf.get( 'curve' )
+  ii.jf.get( 'fm' )
+  ii.jf.get( 'time' )
+  ii.jf.get( 'intone' )
+  -- then receive
+  ii.jf.event = function( e, value )
+    if e.name == 'trigger' then
+      -- handle trigger response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'run_mode' then
+    elseif e.name == 'run' then
+    elseif e.name == 'transpose' then
+    elseif e.name == 'mode' then
+    elseif e.name == 'tick' then
+    elseif e.name == 'god_mode' then
+    elseif e.name == 'quantize' then
+    elseif e.name == 'speed' then
+    elseif e.name == 'tsc' then
+    elseif e.name == 'ramp' then
+    elseif e.name == 'curve' then
+    elseif e.name == 'fm' then
+    elseif e.name == 'time' then
+    elseif e.name == 'intone' then
+    end
+  end
+
+> ii.kria.help()
+  -- commands
+    ii.kria.preset( number )
+    ii.kria.pattern( number )
+    ii.kria.scale( number )
+    ii.kria.period( time )
+    ii.kria.position( track, param, pos )
+    ii.kria.loop_start( track, param, pos )
+    ii.kria.loop_length( track, param, pos )
+    ii.kria.reset( track, param )
+    ii.kria.mute( track, state )
+    ii.kria.toggle_mute( track )
+    ii.kria.clock( track )
+    ii.kria.page( page )
+    ii.kria.cue( pattern )
+    ii.kria.direction( track, direction )
+  -- request params
+  ii.kria.get( 'preset' )
+  ii.kria.get( 'pattern' )
+  ii.kria.get( 'scale' )
+  ii.kria.get( 'period' )
+  ii.kria.get( 'position', track, param )
+  ii.kria.get( 'loop_start', track, param )
+  ii.kria.get( 'loop_length', track, param )
+  ii.kria.get( 'reset', track )
+  ii.kria.get( 'mute', track )
+  ii.kria.get( 'cv', track )
+  ii.kria.get( 'duration' )
+  -- then receive
+  ii.kria.event = function( e, value )
+    if e.name == 'preset' then
+      -- handle preset response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'pattern' then
+    elseif e.name == 'scale' then
+    elseif e.name == 'period' then
+    elseif e.name == 'position' then
+    elseif e.name == 'loop_start' then
+    elseif e.name == 'loop_length' then
+    elseif e.name == 'reset' then
+    elseif e.name == 'mute' then
+    elseif e.name == 'cv' then
+    elseif e.name == 'duration' then
+    end
+  end
+ 
+> ii.levels.help()
+  -- commands
+    ii.levels.preset( number )
+    ii.levels.reset( now )
+    ii.levels.position( pos )
+    ii.levels.loop_start( pos )
+    ii.levels.loop_length( pos )
+    ii.levels.loop_direction( direction )
+  -- request params
+  ii.levels.get( 'preset' )
+  ii.levels.get( 'position' )
+  ii.levels.get( 'loop_start' )
+  ii.levels.get( 'loop_length' )
+  ii.levels.get( 'loop_direction' )
+  ii.levels.get( 'cv', track )
+  -- then receive
+  ii.levels.event = function( e, value )
+    if e.name == 'preset' then
+      -- handle preset response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'position' then
+    elseif e.name == 'loop_start' then
+    elseif e.name == 'loop_length' then
+    elseif e.name == 'loop_direction' then
+    elseif e.name == 'cv' then
+    end
+  end
+
+> ii.meadowphysics.help()
+  -- commands
+    ii.meadowphysics.preset( number )
+    ii.meadowphysics.reset( track )
+    ii.meadowphysics.stop( track )
+    ii.meadowphysics.scale( number )
+    ii.meadowphysics.period( time )
+  -- request params
+  ii.meadowphysics.get( 'preset' )
+  ii.meadowphysics.get( 'stop' )
+  ii.meadowphysics.get( 'scale' )
+  ii.meadowphysics.get( 'period' )
+  ii.meadowphysics.get( 'cv', track )
+  -- then receive
+  ii.meadowphysics.event = function( e, value )
+    if e.name == 'preset' then
+      -- handle preset response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'stop' then
+    elseif e.name == 'scale' then
+    elseif e.name == 'period' then
+    elseif e.name == 'cv' then
+    end
+  end 
+
+> ii.txi.help()
+  -- request params
+    ii.txi.get( 'param', channel )
+    ii.txi.get( 'param_quant', channel )
+    ii.txi.get( 'param_N', channel )
+    ii.txi.get( 'in', channel )
+    ii.txi.get( 'in_quant', channel )
+    ii.txi.get( 'in_N', channel )
+  -- then receive
+  ii.txi.event = function( e, value )
+    if e.name == 'param' then
+      -- handle param response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'param_quant' then
+    elseif e.name == 'param_N' then
+    elseif e.name == 'in' then
+    elseif e.name == 'in_quant' then
+    elseif e.name == 'in_N' then
+    end
+  end
+
+> ii.txo.help()
+  -- commands
+  ii.txo.tr( port, state )
+  ii.txo.tr_tog( port )
+  ii.txo.tr_pulse( port )
+  ii.txo.tr_time( port, ms )
+  ii.txo.tr_pol( port, rising )
+  ii.txo.tr_time_s( port, s )
+  ii.txo.tr_time_m( port, m )
+  ii.txo.tr_pulse_div( port, pulses )
+  ii.txo.tr_m( port, ms )
+  ii.txo.tr_m_s( port, s )
+  ii.txo.tr_m_m( port, m )
+  ii.txo.tr_m_bpm( port, bpm )
+  ii.txo.tr_m_act( port, state )
+  ii.txo.tr_m_sync( port, state )
+  ii.txo.tr_m_width( port, width )
+  ii.txo.tr_m_count( port, count )
+  ii.txo.tr_m_mul( port, mult )
+  ii.txo.tr_pulse_mute( port, state )
+  ii.txo.cv( port, volts )
+  ii.txo.cv_slew( port, ms )
+  ii.txo.cv_set( port, volts )
+  ii.txo.cv_off( port, volts )
+  ii.txo.cv_slew_s( port, s )
+  ii.txo.cv_slew_m( port, m )
+  ii.txo.cv_qt( port, qt )
+  ii.txo.cv_qt_set( port, qt )
+  ii.txo.cv_n( port, note )
+  ii.txo.cv_n_set( port, note )
+  ii.txo.cv_scale( port, scale )
+  ii.txo.cv_log( port, scale )
+  ii.txo.osc( port, volts )
+  ii.txo.osc_set( port, volts )
+  ii.txo.osc_qt( port, volts )
+  ii.txo.osc_qt_set( port, volts )
+  ii.txo.osc_n( port, note )
+  ii.txo.osc_n_set( port, note )
+  ii.txo.osc_fq( port, fq )
+  ii.txo.osc_fq_set( port, fq )
+  ii.txo.osc_lfo( port, fq )
+  ii.txo.osc_lfo_set( port, fq )
+  ii.txo.osc_wave( port, wave )
+  ii.txo.osc_sync( port, sync )
+  ii.txo.osc_phase( port, phase )
+  ii.txo.osc_width( port, width )
+  ii.txo.osc_rect( port, pol )
+  ii.txo.osc_slew( port, ms )
+  ii.txo.osc_slew_s( port, s )
+  ii.txo.osc_slew_m( port, m )
+  ii.txo.osc_scale( port, scale )
+  ii.txo.osc_cyc( port, ms )
+  ii.txo.osc_cyc_s( port, s )
+  ii.txo.osc_cyc_m( port, m )
+  ii.txo.osc_cyc_set( port, ms )
+  ii.txo.osc_cyc_s_set( port, s )
+  ii.txo.osc_cyc_m_set( port, m )
+  ii.txo.osc_ctr( port, ctr )
+  ii.txo.env_act( port, state )
+  ii.txo.env_att( port, ms )
+  ii.txo.env_att_s( port, s )
+  ii.txo.env_att_m( port, m )
+  ii.txo.env_dec( port, ms )
+  ii.txo.env_dec_s( port, s )
+  ii.txo.env_dec_m( port, m )
+  ii.txo.env_trig( port, state )
+  ii.txo.env_eoc( port, state )
+  ii.txo.env_eor( port, state )
+  ii.txo.env_loop( port, state )
+  ii.txo.env( port, state )
+  ii.txo.kill( port )
+  ii.txo.tr_init( port )
+  ii.txo.cv_init( port )
+  ii.txo.cv_calib( port )
+  ii.txo.cv_reset( port )
+  ii.txo.init( unit )
+
+> ii.wdel.help()
+  -- commands
+    ii.wdel.feedback( level )
+    ii.wdel.mix( fade )
+    ii.wdel.filter( cutoff )
+    ii.wdel.freeze( is_active )
+    ii.wdel.time( seconds )
+    ii.wdel.length( count, divisions )
+    ii.wdel.position( count, divisions )
+    ii.wdel.cut( count, divisions )
+    ii.wdel.rate( multiplier )
+    ii.wdel.freq( volts )
+    ii.wdel.clock(  )
+    ii.wdel.clock_ratio( mul, div )
+    ii.wdel.pluck( volume )
+    ii.wdel.mod_rate( rate )
+    ii.wdel.mod_amount( amount )
+  -- request params
+  ii.wdel.get( 'feedback' )
+  ii.wdel.get( 'mix' )
+  ii.wdel.get( 'filter' )
+  ii.wdel.get( 'freeze' )
+  ii.wdel.get( 'time' )
+  ii.wdel.get( 'rate' )
+  ii.wdel.get( 'freq' )
+  ii.wdel.get( 'mod_rate' )
+  ii.wdel.get( 'mod_amount' )
+  -- then receive
+  ii.wdel.event = function( e, value )
+    if e.name == 'feedback' then
+      -- handle feedback response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'mix' then
+    elseif e.name == 'filter' then
+    elseif e.name == 'freeze' then
+    elseif e.name == 'time' then
+    elseif e.name == 'rate' then
+    elseif e.name == 'freq' then
+    elseif e.name == 'mod_rate' then
+    elseif e.name == 'mod_amount' then
+    end
+  end  
+
+> ii.wsyn.help()
+  -- commands
+    ii.wsyn.velocity( voice, velocity )
+    ii.wsyn.pitch( voice, pitch )
+    ii.wsyn.play_voice( voice, pitch, velocity )
+    ii.wsyn.play_note( pitch, level )
+    ii.wsyn.ar_mode( is_ar )
+    ii.wsyn.curve( curve )
+    ii.wsyn.ramp( ramp )
+    ii.wsyn.fm_index( index )
+    ii.wsyn.fm_env( amount )
+    ii.wsyn.fm_ratio( numerator, denomenator )
+    ii.wsyn.lpg_time( time )
+    ii.wsyn.lpg_symmetry( symmetry )
+    ii.wsyn.patch( jack, param )
+    ii.wsyn.voices( count )
+  -- request params
+  ii.wsyn.get( 'ar_mode' )
+  ii.wsyn.get( 'curve' )
+  ii.wsyn.get( 'ramp' )
+  ii.wsyn.get( 'fm_index' )
+  ii.wsyn.get( 'fm_env' )
+  ii.wsyn.get( 'lpg_time' )
+  ii.wsyn.get( 'lpg_symmetry' )
+  ii.wsyn.get( 'patch', jack )
+  ii.wsyn.get( 'voices' )
+  ii.wsyn.get( 'fm_ratio' )
+  -- then receive
+  ii.wsyn.event = function( e, value )
+    if e.name == 'ar_mode' then
+      -- handle ar_mode response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'curve' then
+    elseif e.name == 'ramp' then
+    elseif e.name == 'fm_index' then
+    elseif e.name == 'fm_env' then
+    elseif e.name == 'lpg_time' then
+    elseif e.name == 'lpg_symmetry' then
+    elseif e.name == 'patch' then
+    elseif e.name == 'voices' then
+    elseif e.name == 'fm_ratio' then
+    end
+  end  
+
+> ii.wtape.help()
+  -- commands
+    ii.wtape.record( active )
+    ii.wtape.play( playback )
+    ii.wtape.reverse(  )
+    ii.wtape.speed( speed_or_num, deno )
+    ii.wtape.freq( frequency )
+    ii.wtape.erase_strength( level )
+    ii.wtape.monitor_level( gain )
+    ii.wtape.rec_level( gain )
+    ii.wtape.echo_mode( is_echo )
+    ii.wtape.loop_start(  )
+    ii.wtape.loop_end(  )
+    ii.wtape.loop_active( state )
+    ii.wtape.loop_scale( scale )
+    ii.wtape.loop_next( direction )
+    ii.wtape.timestamp( seconds )
+    ii.wtape.seek( seconds )
+    ii.wtape.WARNING_clear_tape(  )
+  -- request params
+  ii.wtape.get( 'record' )
+  ii.wtape.get( 'play' )
+  ii.wtape.get( 'freq' )
+  ii.wtape.get( 'erase_strength' )
+  ii.wtape.get( 'monitor_level' )
+  ii.wtape.get( 'rec_level' )
+  ii.wtape.get( 'echo_mode' )
+  ii.wtape.get( 'loop_scale' )
+  ii.wtape.get( 'timestamp' )
+  ii.wtape.get( 'speed' )
+  ii.wtape.get( 'loop_start' )
+  ii.wtape.get( 'loop_end' )
+  -- then receive
+  ii.wtape.event = function( e, value )
+    if e.name == 'record' then
+      -- handle record response
+        -- e.arg: first argument, ie channel
+        -- e.device: index of device
+    elseif e.name == 'play' then
+    elseif e.name == 'freq' then
+    elseif e.name == 'erase_strength' then
+    elseif e.name == 'monitor_level' then
+    elseif e.name == 'rec_level' then
+    elseif e.name == 'echo_mode' then
+    elseif e.name == 'loop_scale' then
+    elseif e.name == 'timestamp' then
+    elseif e.name == 'speed' then
+    elseif e.name == 'loop_start' then
+    elseif e.name == 'loop_end' then
+    end
+  end 
+
+
